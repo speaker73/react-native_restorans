@@ -1,0 +1,31 @@
+{
+	"name": "restorans",
+	"version": "0.0.1",
+	"private": true,
+	"scripts": {
+		"start": "node node_modules/react-native/local-cli/cli.js start",
+		"test": "jest",
+		"installDebug": "cd android && ./gradlew installDebug",
+    	"assembleDebug": "cd android && ./gradlew assembleDebug",
+    	"assembleR": "cd android && ./gradlew assembleRelease",
+    	"buildR": "npm run bundleImport && npm run assembleR",
+    	"clean": "cd android && ./gradlew clean",
+    	"adbInR": "adb install android/app/build/outputs/apk/app-release.apk",
+    	"adbInstall": "adb install android/app/build/outputs/apk/app-debug.apk",
+    	"bundleImport": "react-native bundle --platform android --dev false --entry-file index.android.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res",
+    	"production": "npm run bundleImport && npm run assembleDebug"
+	},
+	"dependencies": {
+		"react": "16.0.0-alpha.6",
+		"react-native": "0.44.2"
+	},
+	"devDependencies": {
+		"babel-jest": "20.0.3",
+		"babel-preset-react-native": "1.9.2",
+		"jest": "20.0.4",
+		"react-test-renderer": "16.0.0-alpha.6"
+	},
+	"jest": {
+		"preset": "react-native"
+	}
+}
