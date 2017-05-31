@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {StyleSheet, Text, View, Button, ScrollView } from 'react-native';
+import Place from './place_detail';
 const api_sett = {
 					cor :'49.2253923,28.4327571',
 					radius: 1000
@@ -15,8 +16,8 @@ export default class Main extends Component {
 		}
 	};
 	renderResources(){
-		return this.state.resources.map((name)=>{
-			return <Text style={{paddingLeft:10,fontSize:16, marginTop:10}}>{name.name}</Text> 
+		return this.state.resources.map((object)=>{
+			return <Place toggle={true} style={{backgroundColor:'#ccc', marginTop:10, marginLeft:10, marginRight:10, padding:10}} textStyle={{color:'#eee'}} name={object.name} object={object}/>
 		})
 	}
 	getResorans(){
@@ -34,7 +35,10 @@ export default class Main extends Component {
 				 const resources = JSON.parse(xhr.responseText).results;
 				 
 				 console.log(resources);
-				 this.setState({resources});
+				 setTimeout(()=>{
+				 	this.setState({resources});
+				 },1000)
+				 
 				}		 	
 			};
 		
@@ -45,7 +49,7 @@ export default class Main extends Component {
   render() {
 
     return (
-       <ScrollView  style={{flex:1, justifyContent:'center', alignItems:'flex-start'}}>
+       <ScrollView  style={{flex:1}}>
        		{this.renderResources()}
        </ScrollView>
     );
