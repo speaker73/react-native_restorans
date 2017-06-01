@@ -33,9 +33,14 @@ export default class Main extends Component {
 			  // обработать ошибку
 			// console.log( xhr.status + ': ' + xhr.statusText ); // пример вывода: 404: Not Found
 			}else{
-				 console.log(xhr);
-				 const resources = JSON.parse(xhr.responseText).results;
+				
 				 
+				 const responseText = JSON.parse(xhr.responseText);
+				 if(responseText.status == 'OVER_QUERY_LIMIT'){
+				 	this.setState({resources:[{key:42, name:responseText.status, error_message: responseText.error_message}]})
+				 	return
+				 }
+				 const resources = responseText.results;
 				 console.log(resources);
 				 resources.forEach((obj, id)=>{
 				 	obj.key = id;
