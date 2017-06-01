@@ -1,26 +1,28 @@
 import React, { Component } from 'react';
 import {StyleSheet, Text, View, Button, ScrollView } from 'react-native';
 import Place from './place_detail';
-const api_sett = {
-					cor :'49.2253923,28.4327571',
-					radius: 1000
-				};
-
-const api = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location='+api_sett.cor+'&radius='+api_sett.radius+'&type=food&key=AIzaSyAFZ8xYjGLiOs-2s7uM0LhPtH4ii_10Q8U';
 
 export default class Main extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			resources:this.props.resources
+			resources:this.props.resources,
+			opened: false,
+			api:this.props.api
 		}
 	};
+	closeAndOpen(state){
+			this.setState({opened:false});
+		
+	}
 	renderResources(){
 		return this.state.resources.map((object)=>{
-			return <Place toggle={true} style={{backgroundColor:'#ccc', marginTop:10, marginLeft:10, marginRight:10, padding:10}} textStyle={{color:'#eee'}} name={object.name} object={object}/>
+			return <Place key={object.key} open={this.state.opened} toggle={()=>{this.setState({opened:false}) }} style={{backgroundColor:'#ccc', marginTop:10, marginLeft:10, marginRight:10, padding:10}} textStyle={{color:'#eee'}} name={object.name} object={object}/>
 		})
 	}
-	getResorans(){
+	getResorans(api){
+		if(!api) return;
+		
 		console.log('xhr start', api);
 		const xhr = new XMLHttpRequest();
 		xhr.open('POST', api);
@@ -35,6 +37,9 @@ export default class Main extends Component {
 				 const resources = JSON.parse(xhr.responseText).results;
 				 
 				 console.log(resources);
+				 resources.forEach((obj, id)=>{
+				 	obj.key = id;
+				 })
 				 setTimeout(()=>{
 				 	this.setState({resources});
 				 },1000)
@@ -43,8 +48,12 @@ export default class Main extends Component {
 			};
 		
 	}
-	componentDidMount(){
-		this.getResorans();
+	componentWillReceiveProps(nextProps){
+		if(nextProps.api != this.state.api){
+			//alert(nextProps.api);
+			this.getResorans(nextProps.api);
+		}
+		
 	}
   render() {
 
