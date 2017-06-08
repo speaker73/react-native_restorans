@@ -8,17 +8,27 @@ export default class Main extends Component {
 		this.state = {
 			resources:this.props.resources,
 			opened: false,
-			api:this.props.api
+			api:this.props.api,
+			choise:this.props.onChoise,
+			choiseNum:0
 		}
 	};
 	closeAndOpen(state){
 			this.setState({opened:false});
 		
 	}
+	random(){
+		const min = 0;
+		const max = this.state.resources.length;
+  		return Math.floor(Math.random() * (max - min)) + min;
+	}
 	renderResources(){
 		return this.state.resources.map((object)=>{
-			return <Place key={object.key} open={this.state.opened} toggle={()=>{this.setState({opened:false}) }} style={{backgroundColor:'#ccc', marginTop:10, marginLeft:10, marginRight:10, padding:10}} textStyle={{color:'#eee'}} name={object.name} object={object}/>
+			return <Place key={object.key} open={this.state.opened} toggle={()=>{this.setState({opened:false}) }} style={{backgroundColor:'darksalmon', marginTop:10, marginLeft:10, marginRight:10, padding:10}} textStyle={{color:'#eee'}} name={object.name} object={object}/>
 		})
+	}
+	renderOneResources(object){
+		return <Place key={object.key} open={this.state.opened} toggle={()=>{this.setState({opened:false}) }} style={{backgroundColor:'darksalmon', marginTop:10, marginLeft:10, marginRight:10, padding:10}} textStyle={{color:'#eee'}} name={object.name} object={object}/>
 	}
 	getResorans(api){
 		if(!api) return;
@@ -58,14 +68,21 @@ export default class Main extends Component {
 			//alert(nextProps.api);
 			this.getResorans(nextProps.api);
 		}
+		if(nextProps.onChoise != this.state.choise){
+			if(nextProps.onChoise){
+				this.setState({choiseNum:this.random()});
+			}			
+			this.setState({choise:nextProps.onChoise})
+
+		}
 		
 	}
   render() {
 
     return (
-       <ScrollView  style={{flex:1}}>
-       		{this.renderResources()}
-       </ScrollView>
+	       <ScrollView  style={{flex:1}}>
+	       		{this.state.choise?this.renderOneResources(this.state.resources[this.state.choiseNum]):this.renderResources()}
+	       </ScrollView>
     );
   }
 }
