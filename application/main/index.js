@@ -50,6 +50,7 @@ export default class Main extends Component {
 				 	this.setState({resources:[{key:42, name:responseText.status, error_message: responseText.error_message}]})
 				 	return
 				 }
+				 console.log(responseText);
 				 const resources = responseText.results;
 				 console.log(resources);
 				 resources.forEach((obj, id)=>{

@@ -63,10 +63,10 @@ setFake(radius){
 }
   render() {
     return (
-      <View style={{flex:1, justifyContent:'space-between',backgroundColor:'#eee'}}>
+      <View style={{flex:1, justifyContent:'space-between',backgroundColor:'#913f11'}}>
        <Header style={{backgroundColor:'bisque', height:40, alignItems:'center', justifyContent:'center', borderBottomWidth:1}} textStyle={{color:'black', fontSize:16}} title={this.state.title} />
-          <View style={{justifyContent:'center', alignItems:'center'}}>
-            <Text> Places from {this.state.radius} m. Cor: {this.state.position && this.state.position.coords.latitude}{ this.state.position&&(', ') }{this.state.position && this.state.position.coords.longitude}</Text>
+          <View style={{justifyContent:'center', alignItems:'center', paddingVertical:10}}>
+            <Text style={{color:'#fff'}}> Places from {this.state.radius} m. Cor: {this.state.position && this.state.position.coords.latitude}{ this.state.position&&(', ') }{this.state.position && this.state.position.coords.longitude}</Text>
           </View>
        <View style={{flexDirection:'row', justifyContent:'space-around', paddingBottom:10}}> 
           <Button 

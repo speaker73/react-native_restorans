@@ -9,7 +9,7 @@ export default class Button extends Component {
   render() {
     return (
     <View  style={[{alignItems:'center', justifyContent:'center'}, this.props.style]}>
-      <TouchableOpacity onPress={this.props.onPress} style={{alignItems:'center', justifyContent:'center', flexDirection:'row', backgroundColor:'cadetblue', height:40, width:100, flexDirection:'column'}}>
+      <TouchableOpacity onPress={this.props.onPress} style={{alignItems:'center', justifyContent:'center', flexDirection:'row', backgroundColor:'#c71', height:40, width:100, flexDirection:'column'}}>
       	<Text style={{color:'white', fontSize:16}}> {this.props.text}</Text>
       </TouchableOpacity>
     </View>
